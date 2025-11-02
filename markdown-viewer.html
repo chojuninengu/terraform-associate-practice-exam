@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Exam - Terraform Associate</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="markdown.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎯 <span id="examTitle">Practice Exam</span></h1>
+                <p>Complete exam with all questions and detailed explanations</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="markdown-container">
+                <div class="loading" id="loading">
+                    <h3>Loading exam content...</h3>
+                    <p>Please wait while we fetch the complete practice exam.</p>
+                </div>
+                <div class="markdown-content" id="markdownContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <a href="index.html">← Back to Exam List</a> | 
+                <a href="#" onclick="window.print()">🖨️ Print Exam</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Get exam number from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const examNum = urlParams.get('exam') || '1';
+        
+        // Update title
+        document.getElementById('examTitle').textContent = `Practice Exam #${examNum}`;
+        document.title = `Practice Exam #${examNum} - Terraform Associate`;
+        
+        // Load and render markdown
+        async function loadMarkdown() {
+            try {
+                const response = await fetch(`processed-exams/terraform-practice-exam-${examNum}.md`);
+                if (!response.ok) throw new Error('Failed to load exam');
+                
+                const markdown = await response.text();
+                const html = marked.parse(markdown);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('markdownContent').innerHTML = html;
+                
+                // Add some interactive features
+                addInteractiveFeatures();
+                
+            } catch (error) {
+                document.getElementById('loading').innerHTML = `
+                    <h3>Error Loading Exam</h3>
+                    <p>Could not load Practice Exam #${examNum}. Please try again later.</p>
+                    <a href="index.html" class="btn btn-primary">← Back to Exam List</a>
+                `;
+            }
+        }
+        
+        function addInteractiveFeatures() {
+            // Add click handlers for answer options
+            const answers = document.querySelectorAll('p');
+            answers.forEach(p => {
+                if (p.textContent.match(/^[A-D]\)/)) {
+                    p.classList.add('answer-option');
+                    p.addEventListener('click', function() {
+                        // Remove previous selections in this question group
+                        const siblings = this.parentNode.querySelectorAll('.answer-option');
+                        siblings.forEach(s => s.classList.remove('selected'));
+                        
+                        // Add selection to clicked option
+                        this.classList.add('selected');
+                    });
+                }
+            });
+            
+            // Add progress indicator
+            addProgressIndicator();
+        }
+        
+        function addProgressIndicator() {
+            const questions = document.querySelectorAll('h2');
+            const questionCount = questions.length - 1; // Subtract 1 for the congratulations section
+            
+            if (questionCount > 0) {
+                const progressDiv = document.createElement('div');
+                progressDiv.className = 'progress-indicator';
+                progressDiv.innerHTML = `
+                    <div class="progress-info">
+                        <span>📊 ${questionCount} Questions Total</span>
+                        <span id="answeredCount">0 Answered</span>
+                    </div>
+                `;
+                
+                const container = document.querySelector('.markdown-container');
+                container.insertBefore(progressDiv, container.firstChild);
+                
+                // Update answered count when options are selected
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('answer-option')) {
+                        setTimeout(() => {
+                            const answered = document.querySelectorAll('.answer-option.selected').length;
+                            document.getElementById('answeredCount').textContent = `${answered} Answered`;
+                        }, 100);
+                    }
+                });
+            }
+        }
+        
+        // Load markdown when page loads
+        loadMarkdown();
+    </script>
+</body>
+</html>

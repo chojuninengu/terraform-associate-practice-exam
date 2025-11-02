@@ -1,0 +1,232 @@
+/* Markdown viewer styles */
+.markdown-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: #4a5568;
+}
+
+.progress-indicator {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-info span {
+    font-weight: 500;
+    color: #0369a1;
+}
+
+/* Markdown content styling */
+.markdown-content h1 {
+    color: #2d3748;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+    color: #2d3748;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    padding: 1rem;
+    background: #f7fafc;
+    border-left: 4px solid #667eea;
+    border-radius: 0 8px 8px 0;
+}
+
+.markdown-content h3 {
+    color: #4a5568;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.markdown-content h4 {
+    color: #667eea;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.markdown-content p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Answer options styling */
+.answer-option {
+    background: #f7fafc !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    font-weight: 500 !important;
+}
+
+.answer-option:hover {
+    border-color: #cbd5e0 !important;
+    background: #edf2f7 !important;
+}
+
+.answer-option.selected {
+    border-color: #667eea !important;
+    background: #f0f4ff !important;
+    color: #2d3748 !important;
+    font-weight: 600 !important;
+}
+
+/* Correct answer styling */
+.markdown-content p:contains("✅") {
+    background: #f0fff4 !important;
+    border-color: #68d391 !important;
+}
+
+/* Code blocks */
+.markdown-content code {
+    background: #f7fafc;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: #e53e3e;
+}
+
+.markdown-content pre {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.markdown-content pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+}
+
+/* Links */
+.markdown-content a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
+}
+
+/* Horizontal rules */
+.markdown-content hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    margin: 2rem 0;
+    border-radius: 1px;
+}
+
+/* Lists */
+.markdown-content ul, .markdown-content ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.markdown-content li {
+    margin: 0.5rem 0;
+    color: #4a5568;
+}
+
+/* Blockquotes */
+.markdown-content blockquote {
+    border-left: 4px solid #667eea;
+    background: #f7fafc;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Tables */
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.markdown-content th, .markdown-content td {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.markdown-content th {
+    background: #f7fafc;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* Print styles */
+@media print {
+    .header, .footer {
+        display: none;
+    }
+    
+    .markdown-container {
+        box-shadow: none;
+        border: none;
+        max-width: none;
+    }
+    
+    .answer-option {
+        border: 1px solid #ccc !important;
+        background: white !important;
+    }
+    
+    .answer-option.selected {
+        background: #f0f0f0 !important;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .markdown-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .progress-indicator {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .markdown-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .markdown-content h2 {
+        font-size: 1.2rem;
+        padding: 0.75rem;
+    }
+}
