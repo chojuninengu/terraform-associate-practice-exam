@@ -13,12 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show/hide explanation
     showExplanationBtn.addEventListener('click', function() {
-        if (explanation.style.display === 'none') {
-            explanation.style.display = 'block';
-            showExplanationBtn.textContent = 'Hide Explanation';
-        } else {
-            explanation.style.display = 'none';
-            showExplanationBtn.textContent = 'Show Explanation';
+        const currentExplanation = document.getElementById('explanation');
+        if (currentExplanation) {
+            if (currentExplanation.style.display === 'none' || !currentExplanation.style.display) {
+                currentExplanation.style.display = 'block';
+                showExplanationBtn.textContent = 'Hide Explanation';
+            } else {
+                currentExplanation.style.display = 'none';
+                showExplanationBtn.textContent = 'Show Explanation';
+            }
         }
     });
     
@@ -151,11 +154,11 @@ document.addEventListener('DOMContentLoaded', function() {
             demoMsg.className = 'demo-message';
             demoMsg.innerHTML = `
                 <div class="demo-content">
-                    <h4>📝 Demo Mode</h4>
-                    <p>This is a demonstration of the exam interface. For the complete ${totalQuestions} questions, please use:</p>
+                    <h4>🎯 Demo Complete!</h4>
+                    <p>You've experienced all 5 demo questions! Ready for the complete certification preparation?</p>
                     <div class="demo-actions">
-                        <a href="processed-exams/terraform-practice-exam-1.md" class="btn btn-primary">View Complete Exam</a>
-                        <button onclick="closeDemoMessage()" class="btn btn-secondary">Continue Demo</button>
+                        <a href="markdown-viewer.html?exam=1" class="btn btn-primary">View Complete Exam (57 Questions)</a>
+                        <button onclick="closeDemoMessage()" class="btn btn-secondary">Restart Demo</button>
                     </div>
                 </div>
             `;
@@ -171,12 +174,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
-    // Global function to close demo message
+    // Global function to close demo message and restart
     window.closeDemoMessage = function() {
         const demoMsg = document.getElementById('demoMessage');
         if (demoMsg) {
             demoMsg.style.display = 'none';
         }
+        // Restart demo
+        currentQuestionIndex = 0;
+        userAnswers = {};
+        loadQuestion(0);
+        updateProgress();
     }
     
     // Initialize
