@@ -40,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentQuestionIndex < totalQuestions) {
             currentQuestionIndex++;
             updateProgress();
-            // In a real implementation, this would load the next question
-            alert('This is a demo. For the complete exam, please use the markdown version.');
+            showDemoMessage();
         }
     });
     
@@ -64,6 +63,44 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update navigation buttons
         prevBtn.disabled = currentQuestionIndex === 1;
         nextBtn.disabled = currentQuestionIndex === totalQuestions;
+    }
+    
+    // Demo message function
+    function showDemoMessage() {
+        // Create or update demo message
+        let demoMsg = document.getElementById('demoMessage');
+        if (!demoMsg) {
+            demoMsg = document.createElement('div');
+            demoMsg.id = 'demoMessage';
+            demoMsg.className = 'demo-message';
+            demoMsg.innerHTML = `
+                <div class="demo-content">
+                    <h4>📝 Demo Mode</h4>
+                    <p>This is a demonstration of the exam interface. For the complete ${totalQuestions} questions, please use:</p>
+                    <div class="demo-actions">
+                        <a href="processed-exams/terraform-practice-exam-1.md" class="btn btn-primary">View Complete Exam</a>
+                        <button onclick="closeDemoMessage()" class="btn btn-secondary">Continue Demo</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(demoMsg);
+        }
+        demoMsg.style.display = 'flex';
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            if (demoMsg) {
+                demoMsg.style.display = 'none';
+            }
+        }, 5000);
+    }
+    
+    // Global function to close demo message
+    window.closeDemoMessage = function() {
+        const demoMsg = document.getElementById('demoMessage');
+        if (demoMsg) {
+            demoMsg.style.display = 'none';
+        }
     }
     
     // Initialize
