@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Exam #2 - Terraform Associate</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="exam.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎯 Practice Exam #2</h1>
+                <p>57 questions covering Terraform fundamentals and core concepts</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="exam-container">
+                <div class="exam-sidebar">
+                    <div class="exam-info">
+                        <h3>Exam Information</h3>
+                        <div class="info-item">
+                            <span class="label">Questions:</span>
+                            <span class="value">57</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Time:</span>
+                            <span class="value">Self-paced</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Format:</span>
+                            <span class="value">Multiple Choice</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <h4>Progress</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="currentQuestion">1</span> of <span id="totalQuestions">57</span>
+                        </div>
+                    </div>
+
+                    <div class="navigation">
+                        <button id="prevBtn" class="nav-btn" disabled>← Previous</button>
+                        <button id="nextBtn" class="nav-btn">Next →</button>
+                    </div>
+                </div>
+
+                <div class="exam-content">
+                    <div class="question-container" id="questionContainer">
+                        <div class="question-header">
+                            <span class="question-number">Question 1</span>
+                            <span class="question-topic">Infrastructure as Code Concepts</span>
+                        </div>
+                        
+                        <div class="question-text">
+                            <h3>What is Infrastructure as Code (IaC)?</h3>
+                        </div>
+
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="q1" value="a">
+                                <span class="option-text">A method of managing infrastructure through code and automation</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="b">
+                                <span class="option-text">A way to write application code for cloud services</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="c">
+                                <span class="option-text">A programming language for infrastructure</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="q1" value="d">
+                                <span class="option-text">A cloud provider service</span>
+                            </label>
+                        </div>
+
+                        <div class="explanation" id="explanation" style="display: none;">
+                            <h4>Explanation</h4>
+                            <p><strong>Correct Answer: A</strong></p>
+                            <p>Infrastructure as Code (IaC) is a method of managing and provisioning infrastructure through code and automation, rather than manual processes. This approach enables version control, repeatability, and consistency in infrastructure management.</p>
+                        </div>
+                    </div>
+
+                    <div class="question-actions">
+                        <button id="showExplanation" class="btn btn-secondary">Show Explanation</button>
+                        <button id="markForReview" class="btn btn-outline">Mark for Review</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="exam-notice">
+        <div class="container">
+            <p><strong>Note:</strong> This is a demo version showing the exam interface. For the complete 57 questions, please refer to the 
+            <a href="processed-exams/terraform-practice-exam-2.md">markdown version</a> or download the repository.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <a href="index.html">← Back to Exam List</a> | 
+                <a href="processed-exams/terraform-practice-exam-2.md">View Full Exam (Markdown)</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="exam.js"></script>
+</body>
+</html>

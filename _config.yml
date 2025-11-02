@@ -1,0 +1,10 @@
+title: HashiCorp Terraform Associate Practice Exams
+description: Complete certification preparation with 285 comprehensive questions covering all 9 certification objectives
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - README.md
