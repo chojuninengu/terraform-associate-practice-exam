@@ -77,7 +77,7 @@ These practice exams cover **all 9 HashiCorp Terraform Associate certification o
 
 ## 🏆 Certification Success
 
-These practice exams provide comprehensive preparation for the HashiCorp Terraform Associate certification. With **285 questions** covering all exam objectives, you'll be well-prepared for certification success.
+These practice exams provide comprehensive preparation for the HashiCorp Terraform Associate certification. With **328 questions** covering all exam objectives, you'll be well-prepared for certification success.
 
 ## 📝 License
 
