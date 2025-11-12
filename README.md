@@ -2,7 +2,7 @@
 
 ## 🎯 Complete Certification Preparation Resource
 
-This repository contains **5 comprehensive practice exams** with **285 total questions** covering all aspects of the HashiCorp Terraform Associate certification (003).
+This repository contains **6 comprehensive practice exams** with **328 total questions** covering all aspects of the HashiCorp Terraform Associate certification (003).
 
 ## 📚 What's Included
 
@@ -24,13 +24,15 @@ This repository contains **5 comprehensive practice exams** with **285 total que
 │   ├── terraform-practice-exam-2.md
 │   ├── terraform-practice-exam-3.md
 │   ├── terraform-practice-exam-4.md
-│   └── terraform-practice-exam-5.md
+│   ├── terraform-practice-exam-5.md
+│   └── terraform-practice-exam-6.md
 ├── original-tests/            # Source files used for processing
 │   ├── test1.md
 │   ├── test2.md
 │   ├── test3.md
 │   ├── test4.md
-│   └── test5.md
+│   ├── test5.md
+│   └── test6.md
 └── README.md                  # This file
 ```
 
