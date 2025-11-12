@@ -871,3 +871,207 @@ Both commands will destroy all resources defined in your Terraform configuration
 **Reference:** [Terraform Destroy Command](https://developer.hashicorp.com/terraform/cli/commands/destroy)
 
 ---
+
+## Question 29
+**Topic:** HCP Terraform Private Registry  
+**Domain:** Objective 9 - Understand HCP Terraform Capabilities
+
+### Question
+What feature of HCP Terraform allows you to publish and maintain a set of custom modules that can only be used within your organization?
+
+### Answer Options
+
+A) Terraform registry
+
+B) custom VCS integration
+
+C) remote runs
+
+D) private registry
+
+**Correct Answer: D**
+
+### Explanation
+**A) Terraform registry**
+The Terraform registry is a public repository of modules that can be used by any Terraform user, but it is not specific to an organization and does not provide the same level of control as a private registry.
+
+**B) custom VCS integration**
+Custom VCS integration refers to the ability to connect HCP Terraform to a version control system to manage infrastructure as code, but it does not specifically address the publishing and maintenance of custom modules within an organization.
+
+**C) remote runs**
+Remote runs in HCP Terraform allow users to execute Terraform configurations in a remote environment, but it does not directly relate to the publishing and maintenance of custom modules within an organization.
+
+**D) private registry** ✅
+The private registry feature in HCP Terraform allows users to publish and maintain custom modules within their organization, providing a secure and controlled environment for sharing infrastructure configurations.
+
+### Detailed Explanation
+You can use modules from a private registry, like the one provided by HCP Terraform. Private registry modules have source strings of the form <HOSTNAME>/<NAMESPACE>/<NAME>/<PROVIDER>.
+
+**Reference:** [HCP Terraform Private Registry](https://developer.hashicorp.com/terraform/cloud-docs/registry)
+
+---
+
+## Question 30
+**Topic:** Terraform Plan for Validation  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+Oscar is modifying his Terraform configuration file but isn't 100% sure it's correct. He is afraid that changes made could negatively affect production workloads. How can Oscar validate the changes that will be made without impacting existing workloads?
+
+### Answer Options
+
+A) run terraform plan -refresh-only to compare his existing configuration file against the current one
+
+B) run a terraform plan and validate the changes that will be made
+
+C) run terraform apply -lock=false when executing the changes made to the configuration
+
+D) run a terraform validate to ensure the changes won't impact the production workloads
+
+**Correct Answer: B**
+
+### Explanation
+**A) run terraform plan -refresh-only to compare his existing configuration file against the current one**
+terraform plan -refresh-only is used to update the state file with real-world infrastructure. It does not provide a preview of the changes that will be made.
+
+**B) run a terraform plan and validate the changes that will be made** ✅
+Running a terraform plan allows Oscar to preview the changes that will be made to the infrastructure without actually applying them. This way, he can validate the changes and ensure they won't negatively impact existing workloads.
+
+**C) run terraform apply -lock=false when executing the changes made to the configuration**
+Running terraform apply -lock=false will instruct Terraform not to hold a state lock during the operation. This is dangerous and does not allow Oscar to validate changes without affecting production workloads.
+
+**D) run a terraform validate to ensure the changes won't impact the production workloads**
+While terraform validate checks the syntax and configuration of the Terraform files, it does not provide a preview of the changes that will be made.
+
+### Detailed Explanation
+The terraform plan command is used to create an execution plan. This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or the state.
+
+**Reference:** [Terraform Plan Command](https://developer.hashicorp.com/terraform/cli/commands/plan)
+
+---
+
+## Question 31
+**Topic:** Sentinel and OPA with HCP Terraform  
+**Domain:** Objective 9 - Understand HCP Terraform Capabilities
+
+### Question
+Why might users want to utilize Sentinel or OPA with HCP Terraform in their infrastructure workflow? (select three)
+
+### Answer Options
+
+A) To allow users to bypass version control and directly apply changes to production
+
+B) To provide real-time security risk mitigation in Terraform configurations during the development process
+
+C) Organizations can enforce resource naming conventions or approved machine images for improved consistency and clarity
+
+D) Sentinel and OPA enable automated policy checks to enforce compliance standards before applying changes to production environments
+
+E) Sentinel and OPA can enhance security by preventing unauthorized changes to your managed infrastructure
+
+**Correct Answer: C, D, E**
+
+### Explanation
+**A) To allow users to bypass version control and directly apply changes to production**
+Using Sentinel and OPA does not allow users to bypass version control and directly apply changes to production. These tools are meant to enforce policies and compliance standards, ensuring that changes are made in a controlled and secure manner through the proper workflow processes.
+
+**B) To provide real-time security risk mitigation in Terraform configurations during the development process**
+While Sentinel and OPA can enhance security and enforce policies, they are not specifically designed to provide real-time security risk mitigation during the development process. Their primary focus is on policy enforcement and compliance checks.
+
+**C) Organizations can enforce resource naming conventions or approved machine images for improved consistency and clarity** ✅
+By utilizing Sentinel and OPA, organizations can enforce resource naming conventions and approved machine images, leading to improved consistency and clarity across the infrastructure.
+
+**D) Sentinel and OPA enable automated policy checks to enforce compliance standards before applying changes to production environments** ✅
+Sentinel and OPA enable automated policy checks that can enforce compliance standards before applying changes to production environments. This ensures that any changes made to the infrastructure meet the organization's regulatory and security requirements.
+
+**E) Sentinel and OPA can enhance security by preventing unauthorized changes to your managed infrastructure** ✅
+Sentinel and OPA can enhance security by allowing organizations to define and enforce policies that prevent unauthorized changes to the managed infrastructure.
+
+### Detailed Explanation
+Using Sentinel and OPA with HCP Terraform provides several benefits including policy enforcement, automated governance, enhanced security, version-controlled policies, custom approval workflows, preventing costly mistakes, consistency and best practices, and auditing and compliance reporting.
+
+**Reference:** [HCP Terraform Policy Enforcement](https://developer.hashicorp.com/terraform/cloud-docs/policy-enforcement)
+
+---
+
+## Question 32
+**Topic:** Terraform Destroy Commands  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+The __ or the __ commands are available to delete all of your managed infrastructure.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform destroy, terraform apply -destroy**
+
+### Explanation
+terraform destroy [options]
+
+This command is just a convenience alias for the following command:
+
+terraform apply -destroy
+
+### Detailed Explanation
+Both commands will destroy all resources defined in your Terraform configuration. The terraform destroy command is more commonly used, but terraform apply -destroy provides the same functionality and can be useful in automation scenarios.
+
+**Reference:** [Terraform Destroy Command](https://developer.hashicorp.com/terraform/cli/commands/destroy)
+
+---
+
+## Question 33
+**Topic:** Terraform State Show Command  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+What command can you use to display details about the resource as shown below?
+
+```hcl
+resource "aws_internet_gateway" "demo" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "demo_igw"
+  }
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform state show aws_internet_gateway.demo**
+
+### Explanation
+terraform state show ADDRESS will show the attributes of a single resource, therefore the answer is aws_internet_gateway.demo.
+
+### Detailed Explanation
+The terraform state show command provides detailed information about a specific resource in your Terraform state file. This includes all the attributes and their current values for that resource. This is particularly useful for debugging, understanding the current state of your infrastructure, or when you need to reference specific attribute values.
+
+**Reference:** [Terraform State Show Command](https://developer.hashicorp.com/terraform/cli/commands/state/show)
+
+---
+
+## Question 34
+**Topic:** Terraform Destroy Auto Approve  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+To force the destruction of resources without being prompted for confirmation, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform destroy -auto-approve**
+
+### Explanation
+The terraform destroy -auto-approve command is used in Terraform to automatically destroy all the resources defined in your configuration without requiring manual confirmation for each deletion. When you run terraform destroy, Terraform typically prompts you to confirm the destruction of each resource before proceeding. Adding the -auto-approve flag skips this confirmation step and destroys all resources immediately.
+
+### Detailed Explanation
+This command is particularly useful when you want to tear down your infrastructure quickly and efficiently, such as in testing or cleanup scenarios. However, it's crucial to use this option with caution, especially in production environments, as it can result in irreversible deletion of resources without human oversight.
+
+**Reference:** [Terraform Destroy Command](https://developer.hashicorp.com/terraform/cli/commands/destroy)
+
+---
