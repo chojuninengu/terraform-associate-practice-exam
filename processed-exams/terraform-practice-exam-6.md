@@ -785,3 +785,89 @@ NOTE: This used to be terraform taint and has been replaced with terraform apply
 **Reference:** [Terraform Apply Replace](https://developer.hashicorp.com/terraform/cli/commands/apply#replace)
 
 ---
+
+## Question 26
+**Topic:** Terraform Init for New Providers  
+**Domain:** Objective 3 - Understand Terraform Basics
+
+### Question
+You have recently added new resource blocks from a different provider to your configuration. Type in the command you need to run before you can run a terraform plan/apply? __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform init**
+
+### Explanation
+You need to run a terraform init in order to download the provider for the new resource blocks you added.
+
+### Detailed Explanation
+When you add resources from a new provider to your Terraform configuration, you must run terraform init to download and install the provider plugins. This command also initializes the backend configuration and downloads any required modules.
+
+**Reference:** [Terraform Init Command](https://developer.hashicorp.com/terraform/cli/commands/init)
+
+---
+
+## Question 27
+**Topic:** Data Source AMI Reference  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You need to access the attributes of a data source in your Terraform configuration for the following code. How should you reference the ID of the returned data?
+
+```hcl
+data "aws_ami" "ubuntu" {
+  most_recent = true
+ 
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+ 
+  owners = ["099720109477"] 
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: data.aws_ami.ubuntu.id**
+
+### Explanation
+The expression data.aws_ami.ubuntu.id is used in Terraform to refer to the ID of an Amazon Machine Image (AMI) for Ubuntu retrieved from the AWS data source named aws_ami.
+
+### Detailed Explanation
+This specific expression assumes that you have defined a data source block named aws_ami in your Terraform configuration and configured it to retrieve information about Ubuntu AMIs. The .id part of the expression accesses the ID attribute of the AMI object retrieved by the data source.
+
+**Reference:** [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+---
+
+## Question 28
+**Topic:** Terraform Destroy Commands  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+The __ or the __ commands are available to delete all of your managed infrastructure.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform destroy, terraform apply -destroy**
+
+### Explanation
+terraform destroy [options]
+
+This command is just a convenience alias for the following command:
+
+terraform apply -destroy
+
+### Detailed Explanation
+Both commands will destroy all resources defined in your Terraform configuration. The terraform destroy command is more commonly used, but terraform apply -destroy provides the same functionality.
+
+**Reference:** [Terraform Destroy Command](https://developer.hashicorp.com/terraform/cli/commands/destroy)
+
+---
