@@ -408,3 +408,99 @@ This command is useful for managing different environments (such as development,
 **Reference:** [Terraform Workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces)
 
 ---
+
+## Question 13
+**Topic:** Terraform State List Command  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+To list all resources in the current state, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform state list**
+
+### Explanation
+The terraform state list command is used in Terraform, an infrastructure as code tool, to list all the resources currently being managed by Terraform within a particular state file. This command provides a quick overview of the resources that Terraform is aware of and managing.
+
+### Detailed Explanation
+It's particularly useful for understanding what infrastructure resources have been provisioned and are being tracked by Terraform for any given project or environment. The command outputs the resource addresses in the format `resource_type.resource_name`, which can then be used with other state management commands.
+
+**Reference:** [Terraform State List Command](https://developer.hashicorp.com/terraform/cli/commands/state/list)
+
+---
+
+## Question 14
+**Topic:** Terraform Replace Command  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+You want Terraform to redeploy a specific resource that it is managing. Type the command you should use to mark the resource for replacement. __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform apply -replace**
+
+### Explanation
+You would mark the resource for replacement using terraform apply -replace. This command allows you to force the replacement of a specific resource during the apply operation.
+
+### Detailed Explanation
+NOTE: This used to be terraform taint and has been replaced with terraform apply -replace. The -replace flag tells Terraform to destroy and recreate the specified resource, even if no configuration changes would normally require it. This is useful when you need to force a resource to be recreated due to external changes or issues.
+
+**Reference:** [Terraform Apply Replace](https://developer.hashicorp.com/terraform/cli/commands/apply#replace)
+
+---
+
+## Question 15
+**Topic:** Terraform Block Configuration  
+**Domain:** Objective 3 - Understand Terraform Basics
+
+### Question
+Which configuration block type is used to declare settings and behaviors specific to Terraform?
+
+### Answer Options
+
+A) data block
+
+B) provider block
+
+C) resource block
+
+D) terraform block
+
+**Correct Answer: D**
+
+### Explanation
+**A) data block**
+The data block is used to define data sources that Terraform uses to fetch information that is not directly managed by Terraform. Data blocks allow you to query external systems, such as AWS S3 buckets or Azure SQL databases, and use that information within your Terraform configuration.
+
+**B) provider block**
+The provider block is used to configure a specific provider, such as AWS, Azure, or Google Cloud, within a Terraform configuration. This block specifies the provider type, version, and any required authentication details to interact with the provider's API.
+
+**C) resource block**
+The resource block defines the infrastructure components that Terraform will manage, such as virtual machines, storage buckets, or databases. It specifies the resource type, name, and any configuration settings needed to create or manage the resource.
+
+**D) terraform block** ✅
+The terraform block is used to declare settings and behaviors specific to Terraform itself. This block is typically used to set the Terraform version, define backend configurations, and specify provider requirements for the entire configuration.
+
+### Detailed Explanation
+In Terraform, the terraform block is used to configure Terraform settings and to specify a required version constraint for the Terraform CLI. The terraform block is optional and is typically placed at the top of a Terraform configuration file. Here is an example of a terraform block:
+
+```hcl
+terraform {
+  required_version = ">= 1.12.0, < 1.13.0"
+  backend "s3" {
+    bucket = "my-terraform-state"
+    key    = "terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+```
+
+**Reference:** [Terraform Settings](https://developer.hashicorp.com/terraform/language/settings)
+
+---
