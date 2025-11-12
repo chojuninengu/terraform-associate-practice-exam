@@ -316,3 +316,95 @@ This can be useful in situations where you want to apply changes quickly without
 **Reference:** [Terraform Apply Command](https://developer.hashicorp.com/terraform/cli/commands/apply)
 
 ---
+
+## Question 9
+**Topic:** Terraform Format Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+You can use the command __ to reformat your configuration files in the standard canonical style for HCL.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform fmt**
+
+### Explanation
+The terraform fmt command in Terraform is used to automatically format Terraform configuration files according to a consistent style defined by the Terraform language. This command helps ensure that your Terraform code follows a standard formatting convention, making it easier to read and maintain.
+
+### Detailed Explanation
+When you run terraform fmt, Terraform analyzes your configuration files and adjusts indentation, spacing, and other formatting details to comply with the prescribed style. This command is especially useful when working in teams, as it helps enforce a consistent coding style across different contributors. By using terraform fmt regularly, you can keep your Terraform codebase clean and organized, improving readability and making it easier to collaborate on infrastructure projects.
+
+**Reference:** [Terraform Format Command](https://developer.hashicorp.com/terraform/cli/commands/fmt)
+
+---
+
+## Question 10
+**Topic:** Terraform Init Command  
+**Domain:** Objective 3 - Understand Terraform Basics
+
+### Question
+You have recently added new resource blocks from a different provider to your configuration. Type in the command you need to run before you can run a terraform plan/apply? __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform init**
+
+### Explanation
+You need to run a terraform init in order to download the provider for the new resource blocks you added. The terraform init command initializes a working directory containing Terraform configuration files and downloads any required providers and modules.
+
+### Detailed Explanation
+When you add resources from a new provider to your Terraform configuration, you must run terraform init to download and install the provider plugins. This command also initializes the backend configuration and downloads any required modules. It's safe to run terraform init multiple times, and it should be run whenever you add new providers, modules, or change backend configuration.
+
+**Reference:** [Terraform Init Command](https://developer.hashicorp.com/terraform/cli/commands/init)
+
+---
+
+## Question 11
+**Topic:** Terraform Auto Approve Flag  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+To automatically apply changes without interactive confirmation, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform apply -auto-approve**
+
+### Explanation
+The terraform apply -auto-approve command in Terraform is used to automatically apply changes to your infrastructure without requiring manual confirmation for each change. When you run terraform apply normally, Terraform prompts you to confirm the planned changes before proceeding. Adding the -auto-approve flag skips this confirmation step and applies the changes immediately.
+
+### Detailed Explanation
+This can be useful in automated or scripted workflows where manual intervention is not desired. However, it's important to use this option with caution, especially in production environments, as it can lead to unintended changes being applied without human oversight.
+
+**Reference:** [Terraform Apply Command](https://developer.hashicorp.com/terraform/cli/commands/apply)
+
+---
+
+## Question 12
+**Topic:** Terraform Workspace Select  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+To specify a specific Terraform workspace named "production" when running commands, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform workspace select production**
+
+### Explanation
+The terraform workspace select command is used in Terraform to switch to a different workspace. Workspaces in Terraform allow you to manage multiple sets of infrastructure configurations separately within the same directory. When you run terraform workspace select, you specify the name of the workspace you want to switch to, and Terraform will load the configuration associated with that workspace, making it the active workspace for subsequent operations.
+
+### Detailed Explanation
+This command is useful for managing different environments (such as development, staging, and production) or different configurations within the same project. Each workspace maintains its own state file, allowing you to deploy the same configuration to multiple environments while keeping their states separate.
+
+**Reference:** [Terraform Workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces)
+
+---
