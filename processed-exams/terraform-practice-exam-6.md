@@ -1,0 +1,207 @@
+# HashiCorp Terraform Associate Practice Exam #6
+
+## Table of Contents
+- [Question 1: For Each Meta-Argument](#question-1)
+- [Question 2: Terraform State Show Command](#question-2)
+- [Question 3: Terraform Validate Command](#question-3)
+- [Question 4: Terraform Output Command](#question-4)
+- [Question 5: Default State File Name](#question-5)
+
+---
+
+## Question 1
+**Topic:** For Each Meta-Argument  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You are developing a new Terraform module to demonstrate features of the most popular HashiCorp products. You need to spin up an AWS instance for each tool, so you create the resource block as shown below using the for_each meta-argument.
+
+```hcl
+resource "aws_instance" "bryan-demo" {
+  # ...
+  for_each = {
+    "terraform": "infrastructure",
+    "vault":     "security",
+    "consul":    "connectivity",
+    "nomad":     "scheduler",
+  }
+}
+```
+
+After the deployment, you view the state using the terraform state list command. What resource address would be displayed for the instance related to vault?
+
+### Answer Options
+
+A) aws_instance.bryan-demo[1]
+
+B) aws_instance.bryan-demo["2"]
+
+C) aws_instance.bryan-demo["vault"]
+
+D) aws_instance.bryan-demo.vault
+
+**Correct Answer: C**
+
+### Explanation
+**A) aws_instance.bryan-demo[1]**
+The resource address aws_instance.bryan-demo[1] is not the correct format when using the for_each meta-argument in Terraform. The key-value pairs provided in the for_each block are used as keys to uniquely identify each instance, so the correct format includes the specific key, in this case, "vault".
+
+**B) aws_instance.bryan-demo["2"]**
+The resource address aws_instance.bryan-demo["2"] is not the correct format when using the for_each meta-argument in Terraform. The key-value pairs provided in the for_each block are used as keys to uniquely identify each instance, so the correct format includes the specific key, in this case, "vault".
+
+**C) aws_instance.bryan-demo["vault"]** ✅
+The correct resource address format for the instance related to "vault" when using the for_each meta-argument in Terraform is aws_instance.bryan-demo["vault"]. This format allows Terraform to uniquely identify and manage each instance based on the key-value pair provided in the for_each block.
+
+**D) aws_instance.bryan-demo.vault**
+The resource address format aws_instance.bryan-demo.vault is not valid when using the for_each meta-argument in Terraform. The correct format includes the key enclosed in square brackets, such as aws_instance.bryan-demo["vault"], to properly reference the instance related to "vault".
+
+### Detailed Explanation
+In Terraform, when you use the for_each argument in a resource block, Terraform generates multiple instances of that resource, each with a unique address. The address of each instance is determined by the keys of the for_each map, and it is used to identify and manage each instance of the resource.
+
+For example, consider the following resource block in the question:
+
+```hcl
+resource "aws_instance" "bryan-demo" {
+  # ...
+  for_each = {
+    "terraform": "infrastructure",
+    "vault":     "security",
+    "consul":    "connectivity",
+    "nomad":     "scheduler",
+  }
+}
+```
+
+In this example, Terraform will create four instances of the aws_instance resource, one for each key in the for_each map. The addresses of these instances will be aws_instance.bryan-demo["terraform"], aws_instance.bryan-demo["vault"], aws_instance.bryan-demo["consul"], and aws_instance.bryan-demo["nomad"].
+
+When you reference the properties of these instances in your Terraform code, you can use the address and property reference syntax to access the properties of each instance. For example, you can access the ID of the vault instance using aws_instance.bryan-demo["vault"].id.
+
+Using the for_each argument in a resource block is a powerful way to manage multiple instances of a resource, and it provides a convenient way to reuse the same resource configuration for multiple instances with different properties.
+
+**Reference:** [Terraform Resource Addressing](https://developer.hashicorp.com/terraform/cli/v1.1.x/state/resource-addressing)
+
+---
+
+## Question 2
+**Topic:** Terraform State Show Command  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+What command can you use to display details about the resource as shown below?
+
+```hcl
+resource "aws_internet_gateway" "demo" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "demo_igw"
+  }
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform state show aws_internet_gateway.demo**
+
+### Explanation
+The `terraform state show` command is used to display the attributes of a single resource in the Terraform state. The command syntax is `terraform state show ADDRESS` where ADDRESS is the resource address. In this case, the resource address is `aws_internet_gateway.demo`, so the complete command would be `terraform state show aws_internet_gateway.demo`.
+
+### Detailed Explanation
+The `terraform state show` command provides detailed information about a specific resource in your Terraform state file. This includes all the attributes and their current values for that resource. This is particularly useful for debugging, understanding the current state of your infrastructure, or when you need to reference specific attribute values.
+
+**Reference:** [Terraform State Show Command](https://developer.hashicorp.com/terraform/cli/commands/state/show)
+
+---
+
+## Question 3
+**Topic:** Terraform Validate Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+The command __ can be used to ensure your code is syntactically valid and internally consistent.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform validate**
+
+### Explanation
+The `terraform validate` command runs checks that verify whether a configuration is syntactically valid and internally consistent, regardless of any provided variables or existing state. It is thus primarily useful for general verification of reusable modules, including the correctness of attribute names and value types.
+
+### Detailed Explanation
+The `terraform validate` command is an essential tool for ensuring the quality of your Terraform configurations. It performs several types of validation:
+
+- **Syntax validation**: Ensures that the HCL syntax is correct
+- **Configuration validation**: Checks that resource configurations are valid
+- **Reference validation**: Verifies that resource and variable references are correct
+- **Type validation**: Ensures that variable types and values are compatible
+
+This command is particularly useful in CI/CD pipelines and during development to catch errors early before attempting to plan or apply changes.
+
+**Reference:** [Terraform Validate Command](https://developer.hashicorp.com/terraform/cli/commands/validate)
+
+---
+
+## Question 4
+**Topic:** Terraform Output Command  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+The command __ is used to extract the output variables defined in the Terraform configuration.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform output**
+
+### Explanation
+The `terraform output` command in Terraform is used to display the values of outputs defined in the Terraform configuration. Outputs are a way to extract and display information about your infrastructure after it's been created or modified by Terraform. This command allows you to easily view specific information such as IP addresses, URLs, or other configuration details that are defined as outputs in your Terraform configuration files.
+
+### Detailed Explanation
+Output values are a way to expose information about your infrastructure to other Terraform configurations, or to display information to users. The `terraform output` command can be used in several ways:
+
+- `terraform output` - Shows all output values
+- `terraform output <name>` - Shows a specific output value
+- `terraform output -json` - Shows outputs in JSON format for programmatic use
+
+Output values are particularly useful for:
+- Displaying important information after deployment
+- Passing values between different Terraform configurations
+- Integration with other tools and scripts
+
+**Reference:** [Terraform Output Command](https://developer.hashicorp.com/terraform/cli/commands/output)
+
+---
+
+## Question 5
+**Topic:** Default State File Name  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+By default, Terraform stores its state in a file named __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform.tfstate**
+
+### Explanation
+Terraform stores its state in a file called `terraform.tfstate` by default. This file contains the current state of your managed infrastructure and is used by Terraform to map real-world resources to your configuration, keep track of metadata, and improve performance for large infrastructures.
+
+### Detailed Explanation
+The state file is crucial for Terraform's operation as it:
+
+- **Maps configuration to real resources**: Links your Terraform configuration to actual infrastructure
+- **Tracks metadata**: Stores information about resource dependencies and other metadata
+- **Improves performance**: Caches resource attributes to avoid unnecessary API calls
+- **Enables collaboration**: Allows team members to work with the same infrastructure state
+
+While the default is a local file named `terraform.tfstate`, in production environments, it's recommended to use remote state storage for better collaboration and security.
+
+**Reference:** [Terraform State Purpose](https://developer.hashicorp.com/terraform/language/state/purpose)
+
+---
