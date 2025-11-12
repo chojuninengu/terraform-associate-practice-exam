@@ -1075,3 +1075,282 @@ This command is particularly useful when you want to tear down your infrastructu
 **Reference:** [Terraform Destroy Command](https://developer.hashicorp.com/terraform/cli/commands/destroy)
 
 ---
+
+## Question 35
+**Topic:** Terraform State and Configuration Drift  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+You have deployed resources to AWS to support your production workloads. Another user modified a tag of a resource in the AWS Management Console (UI). Which of the following statements are true regarding how Terraform manages state? (select two)
+
+### Answer Options
+
+A) Terraform creates a new state file to record and track the updated changes made by the other user
+
+B) The tag is immediately updated in the Terraform state file after it is changed in the AWS Management Console (UI)
+
+C) Terraform will update the state file to reflect the new tag only during the next plan or apply
+
+D) Modifying the tag of a resource in the AWS Management Console (UI) does not update the current state file
+
+**Correct Answer: C, D**
+
+### Explanation
+**C) Terraform will update the state file to reflect the new tag only during the next plan or apply** ✅
+Terraform will only update the state file to reflect the new tag after the next plan or apply command is run.
+
+**D) Modifying the tag of a resource in the AWS Management Console (UI) does not update the current state file** ✅
+Modifying a resource tag in the AWS Management Console (UI) does not automatically update the Terraform state file.
+
+### Detailed Explanation
+Terraform uses a state file to keep track of the real-world infrastructure it manages. When someone makes changes outside of Terraform—like manually editing a tag in the AWS Console—Terraform doesn't know about it unless you run terraform plan or terraform apply. This is often called Terraform drift.
+
+**Reference:** [Terraform Resource Drift](https://developer.hashicorp.com/terraform/tutorials/state/resource-drift)
+
+---
+
+## Question 36
+**Topic:** Terraform Validate Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+The command __ can be used to ensure your code is syntactically valid and internally consistent.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform validate**
+
+### Explanation
+terraform validate runs checks that verify whether a configuration is syntactically valid and internally consistent, regardless of any provided variables or existing state.
+
+**Reference:** [Terraform Validate Command](https://developer.hashicorp.com/terraform/cli/commands/validate)
+
+---
+
+## Question 37
+**Topic:** For Each Resource Reference in Output  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You have the following resource block that creates subnets using for_each from a variable. How would you reference subnet_b in an output block?
+
+```hcl
+variable "private_subnets" {
+  type = map(number)
+  default = {
+    subnet_a = 1
+    subnet_b = 2
+  }
+}
+ 
+resource "aws_subnet" "private_subnets" {
+  for_each          = var.private_subnets
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(var.vpc_cidr, 8, each.value)
+  availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
+ 
+  tags = {
+    Name      = each.key
+    Terraform = "true"
+  }
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: aws_subnet.private_subnets["subnet_b"].id**
+
+### Explanation
+Since for_each creates resources as a map, each subnet is referenced using its key instead of an index. To get the ID of a specific subnet, use: aws_subnet.private_subnets["subnet_b"].id
+
+**Reference:** [Terraform For Each](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)
+
+---
+
+## Question 38
+**Topic:** Terraform Local Backend  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+Which of the following best describes the default local backend?
+
+### Answer Options
+
+A) The local backend is where Terraform stores logs to be processed by a log collector
+
+B) The local backend is the directory where resources deployed by Terraform have direct access to in order to update their current state
+
+C) The local backend stores state on the local filesystem, locks the state using system APIs, and performs operations locally
+
+D) The local backend is how Terraform connects to public cloud services, such as AWS, Azure, or GCP
+
+**Correct Answer: C**
+
+### Explanation
+**C) The local backend stores state on the local filesystem, locks the state using system APIs, and performs operations locally** ✅
+The default local backend in Terraform stores the state file on the machine's local filesystem where Terraform is being run.
+
+**Reference:** [Terraform Local Backend](https://developer.hashicorp.com/terraform/language/settings/backends/local)
+
+---
+
+## Question 39
+**Topic:** Terraform Apply with Empty Configuration  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+You have a Terraform configuration file with no defined resources. However, there is a related state file for resources that were created on AWS. What happens when you run a terraform apply?
+
+### Answer Options
+
+A) Terraform will produce an error since there are no resources defined
+
+B) Terraform will scan the AWS infrastructure and create a new configuration file based on the state file
+
+C) Terraform will destroy all of the resources
+
+D) Terraform will not perform any operations
+
+**Correct Answer: C**
+
+### Explanation
+**C) Terraform will destroy all of the resources** ✅
+Terraform will destroy all of the resources because the state file contains information about the resources that were previously created on AWS. When you run terraform apply without any defined resources in the configuration file, Terraform will compare the state file with the configuration and realize that there are no corresponding resources defined.
+
+**Reference:** [Terraform State Purpose](https://developer.hashicorp.com/terraform/language/state/purpose)
+
+---
+
+## Question 40
+**Topic:** Data Source S3 Bucket Reference  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You have the following code snippet as part of your Terraform configuration. How would you reference the id of the s3_bucket?
+
+```hcl
+data "aws_s3_bucket" "data_bucket" {
+  bucket = "my-data-lookup-bucket-bk"
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: data.aws_s3_bucket.data_bucket.id**
+
+### Explanation
+You would use data.<resource type>.<resource name>.id to reference the ID of a data source.
+
+**Reference:** [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+---
+
+## Question 41
+**Topic:** Terraform Plan Save Flag  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+When running a terraform plan, how can you save the plan so it can be applied at a later time?
+
+### Answer Options
+
+A) use the -save flag
+
+B) you cannot save a plan
+
+C) use the -file flag
+
+D) use the -out flag
+
+**Correct Answer: D**
+
+### Explanation
+**D) use the -out flag** ✅
+The -out flag in Terraform is used to save the plan generated by the terraform plan command. By specifying this flag followed by a file path, you can save the plan to a file that can be applied later using the terraform apply command.
+
+**Reference:** [Terraform Plan Command](https://developer.hashicorp.com/terraform/cli/commands/plan)
+
+---
+
+## Question 42
+**Topic:** Terraform Console Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+The __ command can be used to get an interactive console to evaluate expressions in your Terraform code.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform console**
+
+### Explanation
+terraform console [options]
+
+This command provides an interactive command-line console for evaluating and experimenting with expressions.
+
+**Reference:** [Terraform Console Command](https://developer.hashicorp.com/terraform/cli/commands/console)
+
+---
+
+## Question 43
+**Topic:** Terraform Format Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+What does the command terraform fmt do?
+
+### Answer Options
+
+A) deletes the existing configuration file
+
+B) formats the state file to ensure the latest state of resources can be obtained
+
+C) updates the font of the configuration file to the official font supported by HashiCorp
+
+D) rewrite Terraform configuration files to a canonical format and style
+
+**Correct Answer: D**
+
+### Explanation
+**D) rewrite Terraform configuration files to a canonical format and style** ✅
+The command terraform fmt rewrites Terraform configuration files to a canonical format and style. This helps maintain consistency in the codebase, making it easier to read and manage.
+
+### Detailed Explanation
+The terraform fmt command is a formatting tool in Terraform that helps to automatically format Terraform configuration files to follow a consistent style and make them more readable. It's best practice to run terraform fmt before committing any changes to the configuration files.
+
+**Reference:** [Terraform Format Command](https://developer.hashicorp.com/terraform/cli/commands/fmt)
+
+---
+
+## Congratulations! 🎉
+
+You have completed **Practice Exam #6** with all **43 questions**! This comprehensive exam covers advanced Terraform topics including:
+
+- **For Each Meta-Arguments** and resource referencing
+- **State Management** and configuration drift
+- **Terraform CLI Commands** and their various flags
+- **HCP Terraform Capabilities** including private registries and policy enforcement
+- **Data Sources** and their proper referencing
+- **Backend Configuration** and state storage
+- **Terraform Workflow** best practices
+
+### 📚 **Next Steps:**
+- Review any questions you found challenging
+- Practice hands-on with real Terraform configurations
+- Explore the official HashiCorp documentation links provided
+- Take additional practice exams to reinforce your knowledge
+
+### 🏆 **Certification Preparation:**
+This exam, combined with the other practice exams, provides comprehensive coverage of all HashiCorp Terraform Associate certification objectives. You're well on your way to certification success!
+
+**Good luck with your HashiCorp Terraform Associate certification! 🚀**
+
+---
