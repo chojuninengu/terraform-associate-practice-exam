@@ -504,3 +504,284 @@ terraform {
 **Reference:** [Terraform Settings](https://developer.hashicorp.com/terraform/language/settings)
 
 ---
+
+## Question 16
+**Topic:** Default State File Name  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+By default, Terraform stores its state in a file named __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform.tfstate**
+
+### Explanation
+Terraform stores its state in a file called terraform.tfstate by default. This file contains the current state of your managed infrastructure and is used by Terraform to map real-world resources to your configuration.
+
+### Detailed Explanation
+The state file is crucial for Terraform's operation as it tracks metadata, improves performance, and enables collaboration. While the default is a local file, in production environments, it's recommended to use remote state storage.
+
+**Reference:** [Terraform State Purpose](https://developer.hashicorp.com/terraform/language/state/purpose)
+
+---
+
+## Question 17
+**Topic:** Data Source ID Reference  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You have the following code snippet as part of your Terraform configuration. How would you reference the id of the s3_bucket?
+
+```hcl
+data "aws_s3_bucket" "data_bucket" {
+  bucket = "my-data-lookup-bucket-bk"
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: data.aws_s3_bucket.data_bucket.id**
+
+### Explanation
+You would use data.<resource type>.<resource name>.id to reference the ID of a data source. The syntax follows the pattern data.provider_resource.name.attribute.
+
+### Detailed Explanation
+Data sources in Terraform allow you to fetch information about existing resources that are not managed by your current Terraform configuration. The reference syntax is consistent across all data sources.
+
+**Reference:** [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+---
+
+## Question 18
+**Topic:** Configuration Drift Detection  
+**Domain:** Objective 7 - Implement and Maintain State
+
+### Question
+Which of the following commands can be used to detect configuration drift?
+
+### Answer Options
+
+A) terraform fmt
+
+B) terraform get
+
+C) terraform init
+
+D) terraform apply -refresh-only
+
+**Correct Answer: D**
+
+### Explanation
+**A) terraform fmt**
+The command terraform fmt is used to format the Terraform configuration files to ensure consistent styling and readability. It does not detect configuration drift but helps maintain a clean and organized codebase.
+
+**B) terraform get**
+The command terraform get is used to download and update modules and plugins referenced in the Terraform configuration. It does not directly detect configuration drift, but it helps manage dependencies in the project.
+
+**C) terraform init**
+The command terraform init is used to initialize a Terraform working directory, download providers, and initialize backend settings. While it is an essential step in setting up a Terraform project, it does not specifically detect configuration drift in the infrastructure.
+
+**D) terraform apply -refresh-only** ✅
+The command terraform apply -refresh-only can be used to detect configuration drift by refreshing the state of the infrastructure without making any changes. It compares the current state with the desired state defined in the configuration files and highlights any differences, indicating potential drift.
+
+### Detailed Explanation
+If the state has drifted from the last time Terraform ran, terraform plan -refresh-only or terraform apply -refresh-only allows drift to be detected.
+
+**Reference:** [Detecting and Managing Drift with Terraform](https://www.hashicorp.com/blog/detecting-and-managing-drift-with-terraform)
+
+---
+
+## Question 19
+**Topic:** Terraform Apply Refresh Flag  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+To skip the refresh step during a terraform apply, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform apply -refresh=false**
+
+### Explanation
+The terraform apply -refresh=false command in Terraform is used to prevent Terraform from refreshing the state of the infrastructure resources before applying changes. By default, Terraform checks the current state of resources in the infrastructure to ensure that it has the latest information before making any modifications.
+
+### Detailed Explanation
+However, using the -refresh=false flag disables this behavior, instructing Terraform to use the existing state without refreshing it. This can be useful in situations where you want to apply changes quickly without waiting for Terraform to check the current state of the infrastructure, especially if you're confident that the state is already up to date. However, it's important to use this option cautiously, as it may lead to unintended consequences if the state of the infrastructure is not accurate.
+
+**Reference:** [Terraform Apply Command](https://developer.hashicorp.com/terraform/cli/commands/apply)
+
+---
+
+## Question 20
+**Topic:** Terraform Plan Output Flag  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+What command can be used to perform a dry-run of your changes and save the proposed changes to a file named bryan for future use? __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform plan -out=bryan**
+
+### Explanation
+Make sure to know that you need to use the flag -out to save a terraform plan output so you can execute it later. The -out flag allows you to save the execution plan to a file that can be applied later using terraform apply.
+
+### Detailed Explanation
+This is particularly useful in automation scenarios where you want to review the plan before applying it, or when you need to separate the planning and applying phases of your deployment process.
+
+**Reference:** [Terraform Plan Command](https://developer.hashicorp.com/terraform/cli/commands/plan)
+
+---
+
+## Question 21
+**Topic:** Terraform Version Command  
+**Domain:** Objective 4 - Use Terraform Outside of Core Workflow
+
+### Question
+In order to check the current version of Terraform you have installed, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform version**
+
+### Explanation
+The terraform version command is used to display the currently installed version of Terraform on your system. When you run this command in your terminal or command prompt, Terraform will output information about the installed version, including the version number and additional details such as the Terraform CLI and Go runtime versions.
+
+### Detailed Explanation
+This command is helpful for verifying which version of Terraform you have installed, which can be important for ensuring compatibility with Terraform configurations and understanding the features available in your environment.
+
+**Reference:** [Terraform Version Command](https://developer.hashicorp.com/terraform/cli/commands/version)
+
+---
+
+## Question 22
+**Topic:** For Each Resource ID Reference  
+**Domain:** Objective 8 - Read, Generate, and Modify Configuration
+
+### Question
+You have the following resource block that creates subnets using for_each from a variable. How would you reference the ID for subnet_b in an output block?
+
+```hcl
+variable "private_subnets" {
+  type = map(number)
+  default = {
+    subnet_a = 1
+    subnet_b = 2
+  }
+}
+ 
+resource "aws_subnet" "private_subnets" {
+  for_each          = var.private_subnets
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(var.vpc_cidr, 8, each.value)
+  availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
+ 
+  tags = {
+    Name      = each.key
+    Terraform = "true"
+  }
+}
+```
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: aws_subnet.private_subnets["subnet_b"].id**
+
+### Explanation
+Since for_each creates resources as a map, each subnet is referenced using its key instead of an index. To get the ID of a specific subnet, use:
+
+aws_subnet.private_subnets["subnet_b"].id
+
+Here:
+- aws_subnet.private_subnets is the resource map
+- ["subnet_b"] accesses the specific subnet by its key
+- .id retrieves the subnet's ID
+
+### Detailed Explanation
+This method ensures you correctly reference a specific resource when using for_each. When using for_each with a map, Terraform creates a separate resource instance for each key-value pair in the map.
+
+**Reference:** [Terraform For Each](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)
+
+---
+
+## Question 23
+**Topic:** Terraform Login Command  
+**Domain:** Objective 9 - Understand HCP Terraform Capabilities
+
+### Question
+You are using Terraform Cloud to store your state file. Before you can use Terraform Cloud, you should run the command __ to obtain and save credentials for the remote backend.
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform login**
+
+### Explanation
+The terraform login command can be used to automatically obtain and save an API token for Terraform Cloud, Terraform Enterprise, or any other host that offers Terraform services.
+
+### Detailed Explanation
+This command opens a web browser to authenticate with the service and automatically saves the credentials locally for future use. It's the recommended way to authenticate with HCP Terraform.
+
+**Reference:** [Terraform Login Command](https://developer.hashicorp.com/terraform/cli/commands/login)
+
+---
+
+## Question 24
+**Topic:** Terraform Auto Approve Flag  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+To automatically apply changes without interactive confirmation, you can use the command __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform apply -auto-approve**
+
+### Explanation
+The terraform apply -auto-approve command in Terraform is used to automatically apply changes to your infrastructure without requiring manual confirmation for each change. When you run terraform apply normally, Terraform prompts you to confirm the planned changes before proceeding. Adding the -auto-approve flag skips this confirmation step and applies the changes immediately.
+
+### Detailed Explanation
+This can be useful in automated or scripted workflows where manual intervention is not desired. However, it's important to use this option with caution, especially in production environments, as it can lead to unintended changes being applied without human oversight.
+
+**Reference:** [Terraform Apply Command](https://developer.hashicorp.com/terraform/cli/commands/apply)
+
+---
+
+## Question 25
+**Topic:** Terraform Replace Command  
+**Domain:** Objective 6 - Use the Core Terraform Workflow
+
+### Question
+You want Terraform to redeploy a specific resource that it is managing. Type the command you should use to mark the resource for replacement. __
+
+### Answer Options
+
+Fill in the blank: __
+
+**Correct Answer: terraform apply -replace**
+
+### Explanation
+You would mark the resource for replacement using terraform apply -replace. This command allows you to force the replacement of a specific resource during the apply operation.
+
+### Detailed Explanation
+NOTE: This used to be terraform taint and has been replaced with terraform apply -replace. The -replace flag tells Terraform to destroy and recreate the specified resource, even if no configuration changes would normally require it.
+
+**Reference:** [Terraform Apply Replace](https://developer.hashicorp.com/terraform/cli/commands/apply#replace)
+
+---
