@@ -6,14 +6,15 @@ This repository contains **5 comprehensive practice exams** with **285 total que
 
 ## 📚 What's Included
 
-### 🔥 **5 Complete Practice Exams**
+### 🔥 **6 Complete Practice Exams**
 - **Practice Exam #1**: 57 questions
 - **Practice Exam #2**: 57 questions  
 - **Practice Exam #3**: 57 questions
 - **Practice Exam #4**: 57 questions
 - **Practice Exam #5**: 57 questions
+- **Practice Exam #6**: 43 questions
 
-**Total: 285 comprehensive questions** with detailed explanations and official references.
+**Total: 328 comprehensive questions** with detailed explanations and official references.
 
 ## 📁 Repository Structure
 
